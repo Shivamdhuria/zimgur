@@ -3,6 +3,7 @@
     package="com.example.zimgur">
 
     <application
+        android:name=".app.ZimgurApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
