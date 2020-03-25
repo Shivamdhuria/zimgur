@@ -1,14 +1,65 @@
+#
+# ANDROID
+#
+# built application files
+*.apk
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+*.so
+
+# Ignore gradle files
+.gradle/
+build/
+.externalNativeBuild/
+
+# Local configuration file (sdk path, etc)
+local.properties
+releasePassword
+
+# Crashlytics data
+.crashlytics_data
+
+# External tool builders
+.externalToolBuilders/
+
+#
+# IDEA
+#
+.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+*.iws
+
+#
+# VIM
+#
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+#
+# MAC
+#
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+
+#
+# SONAR
+#
+.sonar
+crashlytics-build.properties
+
+#output
+mocko/output.txt
+
+#memory allocation tracker
+captures/
