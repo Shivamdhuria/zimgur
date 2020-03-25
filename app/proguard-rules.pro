@@ -19,3 +19,39 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+
+#---------------- RETROFIT + OKIO --------------------
+# Platform calls Class.forName on types which do not exist on Android to determine platform.
+-dontnote retrofit2.Platform
+# Platform used when running on Java 8 VMs. Will not be used at runtime.
+-dontwarn retrofit2.Platform$Java8
+# Retrofit uses OKIO under the hood, so this has to be included too
+-dontwarn okio.**
+-dontwarn okhttp3.**
+# Retain generic type information for use by reflection by converters and adapterNumbers.
+-keepattributes Signature
+# Retain declared checked exceptions for use by a Proxy instance.
+-keepattributes Exceptions
+-keepattributes Annotation
+
+#---------------- DAGGER 2 ---------------------
+-dontwarn com.google.errorprone.annotations.*
+
+#---------------- GLIDE ---------------------
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+#---------------- COROUTINES ---------------------
+# ServiceLoader support
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+
+#---------------- DATA CLASSES ---------------------
+
+-keep class com.example.zimgur.main.data.**{*; }
