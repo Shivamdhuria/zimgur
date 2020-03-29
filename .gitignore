@@ -6,6 +6,7 @@
 
 # Api keys
 secrets.properties
+"secrets.properties"
 
 # files for the dex VM
 *.dex
