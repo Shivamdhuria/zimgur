@@ -10,6 +10,7 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -57,6 +58,7 @@ internal class AppModule {
     private fun retrofitConfiguration(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(AppConstant.baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
     }

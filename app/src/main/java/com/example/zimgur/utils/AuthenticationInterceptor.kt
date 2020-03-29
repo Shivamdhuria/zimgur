@@ -11,10 +11,13 @@ internal class AuthenticationInterceptor @Inject constructor(private val prefere
         private const val HEADER_NAME = "Authorization"
     }
 
+    private val clientId = "c8e063cdf1c29db"
+    private val clientSecret = "8df5ab682be6a078bea3682c0a1a36ef66497558"
+
     override fun intercept(chain: Interceptor.Chain): Response {
         val initial = chain.request()
         val builder = chain.request().newBuilder()
-//        builder.addHeader(TEMP_HEADER_NAME, preferences.token())
+        builder.addHeader(HEADER_NAME, "Client-ID $clientId")
         val request = builder.build()
         Log.e("interceptor", request.toString())
         return chain.proceed(request)

@@ -9,14 +9,15 @@ android {
 
     defaultConfig {
 
+        //Add a file "secrets.properties" in the root folder which contains the keys, also add to .gitignore so as not to put it to remote.
         File secretsExists = new File("secrets.properties")
-//        if (secretsExists.exists()) {
+        if (secretsExists.exists()) {
             def secretsFile = rootProject.file('secrets.properties')
             def secrets = new Properties()
             secrets.load(new FileInputStream(secretsFile))
             buildConfigField "String", "IMGUR_OAUTH2_CLIENT_ID", secrets['IMGUR_OAUTH2_CLIENT_ID']
             buildConfigField "String", "IMGUR_OAUTH2_CLIENT_SECRET", secrets['IMGUR_OAUTH2_CLIENT_SECRET']
-//        }
+        }
 
         applicationId "com.example.zimgur"
         minSdkVersion 24

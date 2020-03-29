@@ -9,9 +9,10 @@ import androidx.lifecycle.observe
 import com.cloud.io.base.BaseActivity
 import com.example.zimgur.R
 import com.example.zimgur.login.data.Credentials
+import com.example.zimgur.main.MainActivity
 import com.example.zimgur.utils.GenericResult
 import javax.inject.Inject
-import kotlin.LazyThreadSafetyMode.*
+import kotlin.LazyThreadSafetyMode.NONE
 
 class LoginActivity : BaseActivity() {
 
@@ -43,10 +44,10 @@ class LoginActivity : BaseActivity() {
         viewModel.accessTokenStatus.observe(this) {
             when (it) {
 
-                is GenericResult.Progress ->   Log.e("bnbnvn", it.toString())
+                is GenericResult.Progress -> Log.e("bnbnvn", it.toString())
                 is GenericResult.Success<*> -> onSuccess(it.value as String)
-                is GenericResult.GenericError ->   Log.e("bnbnvn", it.toString())
-                is GenericResult.NetworkError ->   Log.e("bnbnvn", it.toString())
+                is GenericResult.GenericError -> Log.e("bnbnvn", it.toString())
+                is GenericResult.NetworkError -> Log.e("bnbnvn", it.toString())
             }
         }
     }
@@ -87,7 +88,7 @@ class LoginActivity : BaseActivity() {
                 }
 
                 Log.e("credential class", credentials.accessToken)
-                viewModel.getAccessToken()
+                startActivity(MainActivity(this))
             }
         }
     }

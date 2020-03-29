@@ -1,24 +1,52 @@
 package com.example.zimgur.main
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.cloud.io.base.BaseActivity
 import com.example.zimgur.R
-import com.google.android.material.snackbar.Snackbar
+import com.example.zimgur.utils.GenericResult
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
+import kotlin.LazyThreadSafetyMode.NONE
 
 class MainActivity : BaseActivity() {
+
+    internal companion object {
+
+        operator fun invoke(context: Context) = Intent(context, MainActivity::class.java)
+    }
+
+    @Inject
+    internal lateinit var factory: ViewModelProvider.Factory
+
+    private val viewModel by lazy(NONE) { ViewModelProvider(this, factory).get(MainActivityViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            viewModel.fetchPosts()
         }
+
+        viewModel.accessTokenStatus.observe(this) {
+            when (it) {
+
+                is GenericResult.Progress -> Log.e("bnbnvn", it.toString())
+                is GenericResult.Success<*> -> Log.e("bnbnvn", it.toString())
+                is GenericResult.GenericError -> Log.e("bnbnvn", it.toString())
+                is GenericResult.NetworkError -> Log.e("bnbnvn", it.toString())
+            }
+        }
+
     }
 
     override fun onResume() {
