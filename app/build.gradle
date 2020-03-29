@@ -8,6 +8,16 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
+
+        File secretsExists = new File("secrets.properties")
+//        if (secretsExists.exists()) {
+            def secretsFile = rootProject.file('secrets.properties')
+            def secrets = new Properties()
+            secrets.load(new FileInputStream(secretsFile))
+            buildConfigField "String", "IMGUR_OAUTH2_CLIENT_ID", secrets['IMGUR_OAUTH2_CLIENT_ID']
+            buildConfigField "String", "IMGUR_OAUTH2_CLIENT_SECRET", secrets['IMGUR_OAUTH2_CLIENT_SECRET']
+//        }
+
         applicationId "com.example.zimgur"
         minSdkVersion 24
         targetSdkVersion 29
@@ -75,6 +85,7 @@ dependencies {
     def dagger_version = "2.25.4"
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
     implementation "com.google.dagger:dagger:$dagger_version"
     implementation "com.google.dagger:dagger-android:$dagger_version"
@@ -111,6 +122,13 @@ dependencies {
 
     def http_logging_interceptor_version = "4.2.2"
     implementation "com.squareup.okhttp3:logging-interceptor:$http_logging_interceptor_version"
+
+
+    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
 
 
 }

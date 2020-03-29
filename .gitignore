@@ -4,6 +4,9 @@
 # built application files
 *.apk
 
+# Api keys
+api.properties
+
 # files for the dex VM
 *.dex
 

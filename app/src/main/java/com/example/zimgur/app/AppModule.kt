@@ -13,12 +13,20 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+@Suppress("DEPRECATION")
 @Module
 internal class AppModule {
+
+
+    @Singleton
+    @Provides
+    fun provideContext(application: ZimgurApplication): Context = application.applicationContext
+
 
     @Singleton
     @Provides
     fun providePreferences(context: Context) = PreferenceManager.getDefaultSharedPreferences(context)
+
 
     @Provides
     @Singleton
@@ -50,10 +58,8 @@ internal class AppModule {
         return Retrofit.Builder()
             .baseUrl(AppConstant.baseUrl)
             .client(client)
-//            .addConverterFactory(MoshiConverterFactory.create().asLenient())
             .build()
     }
-
 
 
     @Provides

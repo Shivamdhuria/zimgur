@@ -1,5 +1,6 @@
 package com.example.zimgur.utils
 
+import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
@@ -15,6 +16,7 @@ internal class AuthenticationInterceptor @Inject constructor(private val prefere
         val builder = chain.request().newBuilder()
 //        builder.addHeader(TEMP_HEADER_NAME, preferences.token())
         val request = builder.build()
+        Log.e("interceptor", request.toString())
         return chain.proceed(request)
     }
 }

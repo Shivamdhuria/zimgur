@@ -1,5 +1,6 @@
 package com.example.zimgur.app
 
+import com.example.zimgur.login.LoginBuilderModule
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
@@ -13,7 +14,8 @@ import javax.inject.Singleton
         AndroidInjectionModule::class,
         AndroidSupportInjectionModule::class,
         AppModule::class,
-        AppBuilderModule::class
+        AppBuilderModule::class,
+        LoginBuilderModule::class
     ]
 )
 internal interface AppComponent : AndroidInjector<ZimgurApplication> {
