@@ -5,7 +5,7 @@
 *.apk
 
 # Api keys
-api.properties
+secrets.properties
 
 # files for the dex VM
 *.dex
