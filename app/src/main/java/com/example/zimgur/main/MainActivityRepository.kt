@@ -9,5 +9,5 @@ interface MainActivityRepository {
 
     fun fetchGalleryAlbum(
         section: String, sort: String, window: String, page: String,
-        showViral: Boolean, mature: Boolean, album_previews: Boolean): LiveData<GenericResult<ImgurResponse<ImgurGalleryAlbum>?>>
+        showViral: Boolean, mature: Boolean, album_previews: Boolean): LiveData<GenericResult< ImgurResponse<List<ImgurGalleryAlbum>>?>>
 }

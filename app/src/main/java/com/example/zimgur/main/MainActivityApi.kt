@@ -13,5 +13,5 @@ internal interface MainActivityApi {
     suspend fun getGallery(
         @Path("section") section: String, @Path("sort") sort: String, @Path("window") window: String, @Path("page") page: String,
         @Query("showViral") showViral: Boolean, @Query("mature") mature: Boolean, @Query("album_previews") album_previews: Boolean
-    ): ImgurResponse<ImgurGalleryAlbum>
+    ): ImgurResponse<List<ImgurGalleryAlbum>>
 }

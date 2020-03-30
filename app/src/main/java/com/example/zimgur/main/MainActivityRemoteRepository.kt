@@ -13,7 +13,7 @@ import javax.inject.Inject
 internal class MainActivityRemoteRepository @Inject constructor(private val api: MainActivityApi) : MainActivityRepository {
 
     override fun fetchGalleryAlbum(section: String, sort: String, window: String, page: String, showViral: Boolean, mature: Boolean,
-        album_previews: Boolean): LiveData<GenericResult<ImgurResponse<ImgurGalleryAlbum>?>> = liveData {
+        album_previews: Boolean): LiveData<GenericResult<ImgurResponse<List<ImgurGalleryAlbum>>?>> = liveData {
         val apiResult = safeApiCall(Dispatchers.IO) {
             Log.e("bjmbmbh", "api result")
             api.getGallery(section, sort, window, page, showViral, mature, album_previews)

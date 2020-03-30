@@ -8,8 +8,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cloud.io.base.BaseActivity
 import com.example.zimgur.R
+import com.example.zimgur.main.data.ImgurGalleryAlbum
+import com.example.zimgur.main.data.ImgurResponse
 import com.example.zimgur.utils.GenericResult
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -24,13 +27,16 @@ class MainActivity : BaseActivity() {
 
     @Inject
     internal lateinit var factory: ViewModelProvider.Factory
+    private val adapter by lazy(NONE) { GalleryAlbumAdapter() }
+
 
     private val viewModel by lazy(NONE) { ViewModelProvider(this, factory).get(MainActivityViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        setUpAdapter()
+//        setSupportActionBar(toolbar)
 
 
         fab.setOnClickListener { view ->
@@ -41,7 +47,10 @@ class MainActivity : BaseActivity() {
             when (it) {
 
                 is GenericResult.Progress -> Log.e("bnbnvn", it.toString())
-                is GenericResult.Success<*> -> Log.e("bnbnvn", it.toString())
+                is GenericResult.Success<*> -> {
+                   val list =  it.value as ImgurResponse<*>
+                   if (list.success) adapter.submitList(list.data as List<ImgurGalleryAlbum>)
+                }
                 is GenericResult.GenericError -> Log.e("bnbnvn", it.toString())
                 is GenericResult.NetworkError -> Log.e("bnbnvn", it.toString())
             }
@@ -67,5 +76,11 @@ class MainActivity : BaseActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun setUpAdapter() {
+        recyclerView.adapter = adapter
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
     }
 }
