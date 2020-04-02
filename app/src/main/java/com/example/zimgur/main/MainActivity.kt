@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cloud.io.base.BaseActivity
 import com.example.zimgur.R
 import com.example.zimgur.main.data.ImgurGalleryAlbum
-import com.example.zimgur.main.data.ImgurResponse
 import com.example.zimgur.utils.GenericResult
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -48,8 +47,11 @@ class MainActivity : BaseActivity() {
 
                 is GenericResult.Progress -> Log.e("bnbnvn", it.toString())
                 is GenericResult.Success<*> -> {
-                   val list =  it.value as ImgurResponse<*>
-                   if (list.success) adapter.submitList(list.data as List<ImgurGalleryAlbum>)
+                    val list =  it.value as List<ImgurGalleryAlbum>
+                    Log.e("bnbnvn",list.toString())
+                    adapter.submitList(list)
+//                    val listExam = listOf<String>("1","2","3")
+//                    Log.e("example",listExam.toString())
                 }
                 is GenericResult.GenericError -> Log.e("bnbnvn", it.toString())
                 is GenericResult.NetworkError -> Log.e("bnbnvn", it.toString())

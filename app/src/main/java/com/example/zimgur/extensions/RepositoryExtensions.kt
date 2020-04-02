@@ -1,14 +1,16 @@
 package com.example.zimgur.extensions
 
-import com.example.zimgur.utils.GenericResult
-import com.example.zimgur.utils.GenericResult.*
+import com.example.zimgur.utils.ApiResult
 import com.example.zimgur.utils.CacheResult
 import com.example.zimgur.utils.Constants.Companion.CACHE_TIMEOUT
 import com.example.zimgur.utils.Constants.Companion.NETWORK_TIMEOUT
 import com.example.zimgur.utils.ErrorHandling.Companion.CACHE_ERROR_TIMEOUT
 import com.example.zimgur.utils.ErrorHandling.Companion.NETWORK_ERROR_TIMEOUT
 import com.example.zimgur.utils.ErrorHandling.Companion.UNKNOWN_ERROR
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -17,30 +19,32 @@ import java.io.IOException
  */
 private val TAG: String = "AppDebug"
 
-suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T?): GenericResult<T?> {
+suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T?): ApiResult<T?> {
     return withContext(dispatcher) {
         try {
             // throws TimeoutCancellationException
-            withTimeout(NETWORK_TIMEOUT){
-                Success(apiCall.invoke())
+            withTimeout(NETWORK_TIMEOUT) {
+                ApiResult.Success(apiCall.invoke())
             }
         } catch (throwable: Throwable) {
             throwable.printStackTrace()
             when (throwable) {
                 is TimeoutCancellationException -> {
                     val code = 408 // timeout error code
-                    GenericError(code, NETWORK_ERROR_TIMEOUT)
+                    ApiResult.GenericError(code, NETWORK_ERROR_TIMEOUT)
                 }
                 is IOException -> {
-                    NetworkError
+                    ApiResult.NetworkError
                 }
+
                 is HttpException -> {
                     val code = throwable.code()
                     val errorResponse = convertErrorBody(throwable)
-                    GenericError(code, errorResponse)
+                    ApiResult.GenericError(code, errorResponse)
                 }
+
                 else -> {
-                    GenericError(null, UNKNOWN_ERROR)
+                    ApiResult.GenericError(null, UNKNOWN_ERROR)
                 }
             }
 
@@ -52,7 +56,7 @@ suspend fun <T> safeCacheCall(dispatcher: CoroutineDispatcher, cacheCall: suspen
     return withContext(dispatcher) {
         try {
             // throws TimeoutCancellationException
-            withTimeout(CACHE_TIMEOUT){
+            withTimeout(CACHE_TIMEOUT) {
                 CacheResult.Success(cacheCall.invoke())
             }
         } catch (throwable: Throwable) {
@@ -67,19 +71,6 @@ suspend fun <T> safeCacheCall(dispatcher: CoroutineDispatcher, cacheCall: suspen
         }
     }
 }
-
-
-//fun <ViewState> buildError(message: String, uiComponentType: UIComponentType, stateEvent: StateEvent?): DataState<ViewState>{
-//    return DataState.error(
-//        response = Response(
-//            message = "${stateEvent?.errorInfo()}\n\nReason: ${message}",
-//            uiComponentType = uiComponentType,
-//            messageType = MessageType.Error()
-//        ),
-//        stateEvent = stateEvent
-//    )
-//
-//}
 
 private fun convertErrorBody(throwable: HttpException): String? {
     return try {

@@ -24,14 +24,14 @@ internal class LoginViewModel @Inject constructor(private val repository: LoginR
     private val atomicInteger = AtomicInteger()
 
     internal val accessTokenStatus by lazy {
-        loginInput.switchMap {
-            repository.generateAccessToken(
-                refreshToken = credentials.refreshToken ?: "",
-                clientId = clientId,
-                clientSecret = clientSecret,
-                grantType = "refresh_token"
-            )
-        }
+//        loginInput.switchMap {
+//            repository.generateAccessToken(
+//                refreshToken = credentials.refreshToken ?: "",
+//                clientId = clientId,
+//                clientSecret = clientSecret,
+//                grantType = "refresh_token"
+//            )
+//        }
     }
 
     fun getAccessToken() {

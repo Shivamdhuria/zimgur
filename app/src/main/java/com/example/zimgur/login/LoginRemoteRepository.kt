@@ -11,11 +11,11 @@ import javax.inject.Inject
 
 internal class LoginRemoteRepository @Inject constructor(private val api: LoginApi) : LoginRepository {
 
-    override fun generateAccessToken(refreshToken: String, clientId: String, clientSecret: String, grantType: String): LiveData<GenericResult<AuthResult?>> = liveData {
-        val apiResult = safeApiCall(Dispatchers.IO) {
-            Log.e("bjmbmbh", "api result")
-            api.getAccessToken(refreshToken, clientId, clientSecret, grantType)
-        }
-        emit(apiResult)
-    }
+//    override fun generateAccessToken(refreshToken: String, clientId: String, clientSecret: String, grantType: String): LiveData<GenericResult<AuthResult?>> = liveData {
+//        val apiResult = safeApiCall(Dispatchers.IO) {
+//            Log.e("bjmbmbh", "api result")
+//            api.getAccessToken(refreshToken, clientId, clientSecret, grantType)
+//        }
+//        emit(apiResult)
+//    }
 }

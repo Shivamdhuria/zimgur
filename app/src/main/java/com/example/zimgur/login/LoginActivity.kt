@@ -41,15 +41,15 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun subscribeObservers() {
-        viewModel.accessTokenStatus.observe(this) {
-            when (it) {
-
-                is GenericResult.Progress -> Log.e("bnbnvn", it.toString())
-                is GenericResult.Success<*> -> onSuccess(it.value as String)
-                is GenericResult.GenericError -> Log.e("bnbnvn", it.toString())
-                is GenericResult.NetworkError -> Log.e("bnbnvn", it.toString())
-            }
-        }
+//        viewModel.accessTokenStatus.observe(this) {
+//            when (it) {
+//
+//                is GenericResult.Progress -> Log.e("bnbnvn", it.toString())
+//                is GenericResult.Success<*> -> onSuccess(it.value as String)
+//                is GenericResult.GenericError -> Log.e("bnbnvn", it.toString())
+//                is GenericResult.NetworkError -> Log.e("bnbnvn", it.toString())
+//            }
+//        }
     }
 
     private fun onSuccess(s: String) {

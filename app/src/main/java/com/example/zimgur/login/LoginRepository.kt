@@ -8,6 +8,7 @@ import retrofit2.http.Field
 
 internal interface LoginRepository {
 
-    fun generateAccessToken(@Field("refresh_token") refreshToken: String, @Field("client_id") clientId: String,
-                            @Field("client_secret") clientSecret: String, @Field("grant_type") grantType: String): LiveData<GenericResult<AuthResult?>>
+//    fun generateAccessToken(@Field("refresh_token") refreshToken: String, @Field("client_id") clientId: String,
+//                          @Field("client_secret") clientSecret: String, @Field("grant_type")
+//                            grantType: String): LiveData<GenericResult<AuthResult?>>
 }
