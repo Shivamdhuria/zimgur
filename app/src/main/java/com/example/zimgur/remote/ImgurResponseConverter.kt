@@ -18,7 +18,7 @@ class ImgurResponseConverter<T>(private val converter: Converter<ResponseBody, I
         if (response?.status == 200) {
             return response.data
         } else {
-            throw ImgurException(response?.status, response?.errorMessage)
+            throw ImgurException(response?.status, "Something went wrong")
         }
     }
 }

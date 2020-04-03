@@ -35,23 +35,14 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpAdapter()
-//        setSupportActionBar(toolbar)
-
-
-        fab.setOnClickListener { view ->
-            viewModel.fetchPosts()
-        }
 
         viewModel.accessTokenStatus.observe(this) {
             when (it) {
 
                 is GenericResult.Progress -> Log.e("bnbnvn", it.toString())
                 is GenericResult.Success<*> -> {
-                    val list =  it.value as List<ImgurGalleryAlbum>
-                    Log.e("bnbnvn",list.toString())
+                    val list = it.value as List<ImgurGalleryAlbum>
                     adapter.submitList(list)
-//                    val listExam = listOf<String>("1","2","3")
-//                    Log.e("example",listExam.toString())
                 }
                 is GenericResult.GenericError -> Log.e("bnbnvn", it.toString())
                 is GenericResult.NetworkError -> Log.e("bnbnvn", it.toString())
@@ -60,20 +51,12 @@ class MainActivity : BaseActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
@@ -84,5 +67,10 @@ class MainActivity : BaseActivity() {
         recyclerView.adapter = adapter
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchPosts()
     }
 }

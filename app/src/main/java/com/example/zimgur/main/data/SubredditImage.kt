@@ -4,8 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class SubredditImage (
+class SubredditImage(
         val id: String,
         val title: String,
-        val createdAt: Long
-) : Parcelable
+        val createdAt: Long) : Parcelable

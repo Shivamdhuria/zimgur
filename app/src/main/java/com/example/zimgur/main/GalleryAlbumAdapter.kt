@@ -15,9 +15,7 @@ import kotlinx.android.synthetic.main.item_gallery_album.view.*
 class GalleryAlbumAdapter : ListAdapter<ImgurGalleryAlbum, GalleryAlbumAdapter.UserDateViewHolder>(UserDataAdapterListDiff()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserDateViewHolder = UserDateViewHolder(
-        parent.inflate(
-            R.layout.item_gallery_album
-        )
+            parent.inflate(R.layout.item_gallery_album)
     )
 
     override fun onBindViewHolder(holder: UserDateViewHolder, position: Int) {
@@ -40,7 +38,10 @@ class GalleryAlbumAdapter : ListAdapter<ImgurGalleryAlbum, GalleryAlbumAdapter.U
         fun bind(userData: ImgurGalleryAlbum) {
 
             containerView.titleTextView.text = userData.title
-            containerView.descriptionTextView.text = userData.description
+            userData.description?.let {
+                containerView.descriptionTextView.visibility = View.VISIBLE
+                containerView.descriptionTextView.text = it
+            }
         }
     }
 }
