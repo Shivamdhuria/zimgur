@@ -9,7 +9,7 @@ data class ImgurGalleryAlbum (
         @SerializedName("title")
         val title: String,
         @SerializedName("description")
-        val description: String,
+        val description: String?,
         @SerializedName("datetime")
         val datetime: Long,
         @SerializedName("cover")

@@ -1,8 +1,5 @@
 package com.example.zimgur.main
 
-import com.example.zimgur.login.LoginApi
-import com.example.zimgur.login.LoginRemoteRepository
-import com.example.zimgur.login.LoginRepository
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

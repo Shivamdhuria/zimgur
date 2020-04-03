@@ -35,19 +35,13 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpAdapter()
-//        setSupportActionBar(toolbar)
-
-
-        fab.setOnClickListener { view ->
-            viewModel.fetchPosts()
-        }
 
         viewModel.accessTokenStatus.observe(this) {
             when (it) {
 
                 is GenericResult.Progress -> Log.e("bnbnvn", it.toString())
                 is GenericResult.Success<*> -> {
-                    val list =  it.value as List<ImgurGalleryAlbum>
+                    val list = it.value as List<ImgurGalleryAlbum>
                     adapter.submitList(list)
                 }
                 is GenericResult.GenericError -> Log.e("bnbnvn", it.toString())
@@ -55,10 +49,6 @@ class MainActivity : BaseActivity() {
             }
         }
 
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -77,5 +67,10 @@ class MainActivity : BaseActivity() {
         recyclerView.adapter = adapter
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchPosts()
     }
 }
