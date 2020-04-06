@@ -52,15 +52,23 @@ internal object ImgurImageLoader {
                 .into(imageView)
     }
 
-    fun loadImageWithCircularCrop(context: Context, url: String, imageView: ImageView){
+    fun loadImageWithCircularCrop(context: Context, url: String, imageView: ImageView) {
         Glide.with(context)
-            .load(url)
-            .apply(RequestOptions.circleCropTransform())
-            .transition(withCrossFade())
-            .into(imageView)
+                .load(url)
+                .apply(RequestOptions.circleCropTransform())
+                .transition(withCrossFade())
+                .into(imageView)
     }
 
     fun removeCache(context: Context) {
         Glide.get(context).clearMemory()
     }
+
+    fun loadImageAndCrop(context: Context, url: String, imageView: ImageView) {
+        Glide.with(context)
+                .load(url)
+                .fitCenter()
+                .into(imageView)
+    }
+
 }

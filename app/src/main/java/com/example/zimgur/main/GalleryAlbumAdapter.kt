@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zimgur.R
 import com.example.zimgur.extensions.inflate
 import com.example.zimgur.main.data.ImgurGalleryAlbum
+import com.example.zimgur.utils.ImgurImageLoader
+import com.example.zimgur.utils.ImgurUtils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_gallery_album.view.*
 
@@ -38,10 +40,10 @@ class GalleryAlbumAdapter : ListAdapter<ImgurGalleryAlbum, GalleryAlbumAdapter.U
         fun bind(userData: ImgurGalleryAlbum) {
 
             containerView.titleTextView.text = userData.title
-            userData.description?.let {
-                containerView.descriptionTextView.visibility = View.VISIBLE
-                containerView.descriptionTextView.text = it
-            }
+            containerView.userName.text = userData.account_url
+            containerView.descriptionTextView.text = userData.description
+            userData.cover?.isNotBlank()?.let { ImgurImageLoader.loadImageAndCrop(containerView.context, ImgurUtils.coverImageUrlFromId(userData.cover), containerView.coverImage) }
+            ImgurImageLoader.loadImageWithCircularCrop(containerView.context, ImgurUtils.avatarImageUrlFromId(userData.account_url), containerView.avatarImageView)
         }
     }
 }

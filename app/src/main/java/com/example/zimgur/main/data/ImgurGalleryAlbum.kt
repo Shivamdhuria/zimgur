@@ -5,15 +5,15 @@ import com.google.gson.annotations.SerializedName
 data class ImgurGalleryAlbum (
 
         @SerializedName("id")
-        val id: String,
+        val id: String?,
         @SerializedName("title")
-        val title: String,
+        val title: String?,
         @SerializedName("description")
         val description: String?,
         @SerializedName("datetime")
         val datetime: Long,
         @SerializedName("cover")
-        val cover: String,
+        val cover: String?,
         @SerializedName("cover_width")
         val cover_width: Int,
         @SerializedName("cover_height")
