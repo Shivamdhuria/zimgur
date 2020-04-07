@@ -10,6 +10,7 @@ import com.example.zimgur.extensions.inflate
 import com.example.zimgur.main.data.ImgurGalleryAlbum
 import com.example.zimgur.utils.ImgurImageLoader
 import com.example.zimgur.utils.ImgurUtils
+import com.google.android.material.chip.Chip
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_gallery_album.view.*
 
@@ -38,12 +39,18 @@ class GalleryAlbumAdapter : ListAdapter<ImgurGalleryAlbum, GalleryAlbumAdapter.U
     inner class UserDateViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(userData: ImgurGalleryAlbum) {
-
-            containerView.titleTextView.text = userData.title
-            containerView.userName.text = userData.account_url
-            containerView.descriptionTextView.text = userData.description
-            userData.cover?.isNotBlank()?.let { ImgurImageLoader.loadImageAndCrop(containerView.context, ImgurUtils.coverImageUrlFromId(userData.cover), containerView.coverImage) }
-            ImgurImageLoader.loadImageWithCircularCrop(containerView.context, ImgurUtils.avatarImageUrlFromId(userData.account_url), containerView.avatarImageView)
+            containerView.apply {
+                titleTextView.text = userData.title
+                userName.text = userData.account_url
+                descriptionTextView.text = userData.description
+                userData.tags.forEach {
+                    val chip = Chip(chipGroup.context)
+                    chip.text = it.name
+                    chipGroup.addView(chip)
+                }
+                userData.cover?.isNotBlank()?.let { ImgurImageLoader.loadImageAndCrop(containerView.context, ImgurUtils.coverImageUrlFromId(userData.cover), containerView.coverImage) }
+                ImgurImageLoader.loadImageWithCircularCrop(containerView.context, ImgurUtils.avatarImageUrlFromId(userData.account_url), containerView.avatarImageView)
+            }
         }
     }
 }

@@ -2,7 +2,7 @@ package com.example.zimgur.main.data
 
 import com.google.gson.annotations.SerializedName
 
-data class ImgurGalleryAlbum (
+data class ImgurGalleryAlbum(
 
         @SerializedName("id")
         val id: String?,
@@ -54,6 +54,8 @@ data class ImgurGalleryAlbum (
         val topic_id: Int,
         @SerializedName("images_count")
         val images_count: Int,
+        @SerializedName("tags")
+        val tags: List<Tag>,
         @SerializedName("images")
         val images: Array<ImgurImage>
 )
