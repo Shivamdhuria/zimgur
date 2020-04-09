@@ -2,11 +2,7 @@ package com.example.zimgur.login
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
-import com.example.zimgur.login.data.AuthResult
-import com.example.zimgur.login.data.Credentials
-import com.example.zimgur.utils.GenericResult
-import kotlinx.coroutines.flow.Flow
+import com.example.zimgur.preferences.Credentials
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 

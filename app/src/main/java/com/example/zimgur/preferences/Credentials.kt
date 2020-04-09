@@ -1,8 +1,9 @@
-package com.example.zimgur.login.data
+package com.example.zimgur.preferences
 
-import android.content.Context
 import android.content.SharedPreferences
+import com.example.zimgur.extensions.edit
 import com.example.zimgur.extensions.unitify
+import com.example.zimgur.login.data.AuthResult
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -61,6 +62,22 @@ class Credentials @Inject constructor(private val prefs: SharedPreferences) {
         prefs.edit().clear().apply()
     }
 
+
+    fun saveThemePreference(mode: String) = savePrefs(PREFERENCE_THEME, mode)
+
+    fun themePreference() = getStoredString(PREFERENCE_THEME, "")
+
+    fun getStoredString(key: String, defVal: String): String {
+        return prefs.getString(key, defVal) ?: ""
+    }
+
+    fun savePrefs(key: String, value: String) {
+        prefs.edit {
+            putString(key, value)
+        }
+    }
+
+
     companion object {
         private const val NAME = "credentials_storage"
         private const val KEY_ACCOUNT_USERNAME = "account_username"
@@ -71,5 +88,9 @@ class Credentials @Inject constructor(private val prefs: SharedPreferences) {
         private const val KEY_TOKEN_TYPE = "token_type"
         private const val KEY_EXPIRES_IN = "expires_in"
         private const val KEY_DID_SECOND_STAGE_AUTH = "did_second_stage_auth"
+
+
+        private const val TOKEN = "token"
+        private const val PREFERENCE_THEME = "preference_key_theme"
     }
 }

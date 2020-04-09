@@ -5,21 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
-import com.cloud.io.base.BaseActivity
+import com.example.zimgur.base.BaseActivity
 import com.example.zimgur.R
-import com.example.zimgur.login.data.Credentials
+import com.example.zimgur.preferences.Credentials
 import com.example.zimgur.main.MainActivity
-import com.example.zimgur.utils.GenericResult
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
 
 class LoginActivity : BaseActivity() {
-
-    private val clientId = "c8e063cdf1c29db"
-    private val clientSecret = "8df5ab682be6a078bea3682c0a1a36ef66497558"
-    private val redirectUrl = "elixer://callback"
-    private val urlAuth = "https://api.imgur.com/oauth2/authorize"
 
     @Inject
     lateinit var credentials: Credentials

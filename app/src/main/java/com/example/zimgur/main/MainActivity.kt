@@ -1,18 +1,26 @@
 package com.example.zimgur.main
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cloud.io.base.BaseActivity
 import com.example.zimgur.R
+import com.example.zimgur.base.BaseActivity
+import com.example.zimgur.extensions.setSafeOnClickListener
 import com.example.zimgur.main.data.ImgurGalleryAlbum
+import com.example.zimgur.preferences.Credentials
 import com.example.zimgur.utils.GenericResult
+import com.example.zimgur.utils.ThemeManager
+import com.example.zimgur.utils.ThemeManager.DARK_MODE
+import com.example.zimgur.utils.ThemeManager.LIGHT_MODE
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
@@ -26,15 +34,18 @@ class MainActivity : BaseActivity() {
 
     @Inject
     internal lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var credentials: Credentials
+
     private val adapter by lazy(NONE) { GalleryAlbumAdapter() }
-
-
     private val viewModel by lazy(NONE) { ViewModelProvider(this, factory).get(MainActivityViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpAdapter()
+        initListeners()
+
 
         viewModel.accessTokenStatus.observe(this) {
             when (it) {
@@ -49,6 +60,47 @@ class MainActivity : BaseActivity() {
             }
         }
 
+    }
+
+    private fun initListeners() {
+        fab.setSafeOnClickListener {
+
+            onDarkThemeMenuItemSelected(isDarkTheme(this))
+        }
+    }
+
+
+//    override fun setTheme(mode: Int) {
+//        AppCompatDelegate.setDefaultNightMode(mode)
+//    }
+
+
+    /**
+     * Set this Activity's night mode based on a user's in-app selection.
+     */
+    private fun onDarkThemeMenuItemSelected(isDark: Boolean): Boolean {
+        val nightMode = AppCompatDelegate.MODE_NIGHT_YES
+//                when (itemId) {
+//            R.id.menu_light -> AppCompatDelegate.MODE_NIGHT_NO
+//            R.id.menu_dark -> AppCompatDelegate.MODE_NIGHT_YES
+//            R.id.menu_battery_saver -> AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
+//            R.id.menu_system_default -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+//            else -> return false
+//        }
+
+        val mode = when (isDark) {
+            true -> LIGHT_MODE
+            false -> DARK_MODE
+        }
+
+        ThemeManager.applyTheme(mode)
+        credentials.saveThemePreference(mode.toString())
+        return true
+    }
+
+    fun isDarkTheme(activity: Activity): Boolean {
+        return activity.resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
