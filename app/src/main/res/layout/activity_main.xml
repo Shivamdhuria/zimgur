@@ -15,6 +15,12 @@
         tools:itemCount="10"
         tools:listitem="@layout/item_gallery_album" />
 
+    <fragment
+        android:id="@+id/bottom_nav_drawer"
+        android:name="com.example.zimgur.navigation.BottomNavDrawerFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
@@ -26,9 +32,11 @@
         <LinearLayout
             android:id="@+id/bottom_app_bar_content_container"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/min_touch_target_size"
+            android:foreground="@drawable/bottom_app_bar_title_foreground"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
 
             <ImageView
                 android:id="@+id/bottom_app_bar_chevron"
@@ -62,6 +70,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_paint"
         app:layout_anchor="@+id/bottom_app_bar"
         app:layout_anchorGravity="top|center" />
 

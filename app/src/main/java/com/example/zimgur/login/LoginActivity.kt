@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.example.zimgur.base.BaseActivity
 import com.example.zimgur.R
-import com.example.zimgur.preferences.Credentials
+import com.example.zimgur.base.BaseActivity
 import com.example.zimgur.main.MainActivity
+import com.example.zimgur.preferences.Credentials
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
 
@@ -22,7 +22,7 @@ class LoginActivity : BaseActivity() {
 
     private val viewModel by lazy(NONE) {
         ViewModelProvider(this, factory).get(
-            LoginViewModel::class.java
+                LoginViewModel::class.java
         )
     }
 

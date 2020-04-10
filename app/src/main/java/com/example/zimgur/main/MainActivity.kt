@@ -8,24 +8,32 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.zimgur.MenuBottomSheetDialogFragment
 import com.example.zimgur.R
 import com.example.zimgur.base.BaseActivity
 import com.example.zimgur.extensions.setSafeOnClickListener
 import com.example.zimgur.main.data.ImgurGalleryAlbum
+import com.example.zimgur.navigation.AlphaSlideAction
+import com.example.zimgur.navigation.BottomNavDrawerFragment
+import com.example.zimgur.navigation.HalfClockwiseRotateSlideAction
+import com.example.zimgur.navigation.ShowHideFabStateAction
 import com.example.zimgur.preferences.Credentials
 import com.example.zimgur.utils.GenericResult
 import com.example.zimgur.utils.ThemeManager
 import com.example.zimgur.utils.ThemeManager.DARK_MODE
 import com.example.zimgur.utils.ThemeManager.LIGHT_MODE
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterListener, Toolbar.OnMenuItemClickListener {
 
     internal companion object {
 
@@ -37,12 +45,14 @@ class MainActivity : BaseActivity() {
     @Inject
     lateinit var credentials: Credentials
 
-    private val adapter by lazy(NONE) { GalleryAlbumAdapter() }
+    private val adapter by lazy(NONE) { GalleryAlbumAdapter(this) }
     private val viewModel by lazy(NONE) { ViewModelProvider(this, factory).get(MainActivityViewModel::class.java) }
+    private val bottomNavDrawer: BottomNavDrawerFragment by lazy(NONE) { supportFragmentManager.findFragmentById(R.id.bottom_nav_drawer) as BottomNavDrawerFragment }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val fabB = fab
         setUpAdapter()
         initListeners()
 
@@ -64,16 +74,31 @@ class MainActivity : BaseActivity() {
 
     private fun initListeners() {
         fab.setSafeOnClickListener {
+//            onDarkThemeMenuItemSelected(isDarkTheme(this))
+        }
 
-            onDarkThemeMenuItemSelected(isDarkTheme(this))
+        fab.apply {
+            setShowMotionSpecResource(R.animator.fab_show)
+            setHideMotionSpecResource(R.animator.fab_hide)
+            setSafeOnClickListener { onDarkThemeMenuItemSelected(isDarkTheme(this@MainActivity)) }
+        }
+        bottom_app_bar_content_container.setOnClickListener {
+            bottomNavDrawer.toggle()
+        }
+
+        val fabView  = fab
+        val image = bottom_app_bar_chevron
+        bottomNavDrawer.apply {
+            addOnSlideAction(HalfClockwiseRotateSlideAction(image))
+//            addOnSlideAction(AlphaSlideAction(binding.bottomAppBarTitle, true))
+            addOnStateChangedAction(ShowHideFabStateAction(fabView))
+        }
+        bottom_app_bar.apply {
+            setNavigationOnClickListener {
+                bottomNavDrawer.toggle()
+            }
         }
     }
-
-
-//    override fun setTheme(mode: Int) {
-//        AppCompatDelegate.setDefaultNightMode(mode)
-//    }
-
 
     /**
      * Set this Activity's night mode based on a user's in-app selection.
@@ -125,4 +150,15 @@ class MainActivity : BaseActivity() {
         super.onResume()
         viewModel.fetchPosts()
     }
+
+    override fun onEmailLongPressed(galleryAlbum: ImgurGalleryAlbum): Boolean {
+        MenuBottomSheetDialogFragment(R.menu.email_bottom_sheet_menu).show(supportFragmentManager, null)
+        return true
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
+
+
