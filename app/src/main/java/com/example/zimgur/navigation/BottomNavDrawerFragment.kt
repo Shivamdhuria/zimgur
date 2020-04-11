@@ -23,18 +23,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import com.example.zimgur.R
+import com.example.zimgur.navigation.data.NavMenuItem
 import com.example.zimgur.utils.themeColor
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.shape.MaterialShapeDrawable
 import kotlinx.android.synthetic.main.fragment_bottom_nav_drawer.*
-import kotlin.LazyThreadSafetyMode.*
+import kotlin.LazyThreadSafetyMode.NONE
 
 
 /**
  * A [Fragment] which acts as a bottom navigation drawer.
  */
-class BottomNavDrawerFragment : Fragment() {
+class BottomNavDrawerFragment : Fragment(), NavigationAdapter.NavigationAdapterListener {
+
+    private val adapter by lazy(NONE) { NavigationAdapter(this@BottomNavDrawerFragment) }
 
     private val behavior: BottomSheetBehavior<FrameLayout> by lazy(NONE) {
         BottomSheetBehavior.from(background_container)
@@ -53,6 +57,16 @@ class BottomNavDrawerFragment : Fragment() {
         scrim_view.setOnClickListener { close() }
         behavior.addBottomSheetCallback(bottomSheetCallback)
 
+        nav_recycler_view.adapter = adapter
+        observeLiveModel()
+        NavigationModel.setNavigationMenuItemChecked(0)
+
+    }
+
+    private fun observeLiveModel() {
+        NavigationModel.navigationList.observe(this@BottomNavDrawerFragment) {
+            adapter.submitList(it)
+        }
     }
 
     private val backgroundShapeDrawable: MaterialShapeDrawable by lazy(NONE) {
@@ -64,13 +78,12 @@ class BottomNavDrawerFragment : Fragment() {
                 0
         ).apply {
             fillColor = ColorStateList.valueOf(
-                    backgroundContext.themeColor(R.attr.colorPrimarySurfaceVariant)
+                    backgroundContext.themeColor(R.attr.colorPrimarySurface)
             )
 //            elevation = resources.getDimension(R.dimen.plane_08)
             initializeElevationOverlay(requireContext())
         }
     }
-
 
 
     fun toggle() {
@@ -99,4 +112,10 @@ class BottomNavDrawerFragment : Fragment() {
         bottomSheetCallback.addOnStateChangedAction(action)
     }
 
+    override fun onNavMenuItemClicked(item: NavMenuItem) {
+        if (NavigationModel.setNavigationMenuItemChecked(item.id)) {
+            adapter.notifyDataSetChanged()
+            close()
+        }
+    }
 }
