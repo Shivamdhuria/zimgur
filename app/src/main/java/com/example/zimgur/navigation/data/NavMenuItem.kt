@@ -1,7 +1,5 @@
 package com.example.zimgur.navigation.data
 
-import androidx.annotation.StringRes
-
 /**
  * A class which represents a checkable, navigation destination such as 'Inbox' or 'Sent'.
  */

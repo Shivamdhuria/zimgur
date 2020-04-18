@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +18,6 @@ import com.example.zimgur.R
 import com.example.zimgur.base.BaseActivity
 import com.example.zimgur.extensions.setSafeOnClickListener
 import com.example.zimgur.main.data.ImgurGalleryAlbum
-import com.example.zimgur.navigation.AlphaSlideAction
 import com.example.zimgur.navigation.BottomNavDrawerFragment
 import com.example.zimgur.navigation.HalfClockwiseRotateSlideAction
 import com.example.zimgur.navigation.ShowHideFabStateAction
@@ -28,7 +26,6 @@ import com.example.zimgur.utils.GenericResult
 import com.example.zimgur.utils.ThemeManager
 import com.example.zimgur.utils.ThemeManager.DARK_MODE
 import com.example.zimgur.utils.ThemeManager.LIGHT_MODE
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
@@ -42,6 +39,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
 
     @Inject
     internal lateinit var factory: ViewModelProvider.Factory
+
     @Inject
     lateinit var credentials: Credentials
 
@@ -56,10 +54,8 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
         setUpAdapter()
         initListeners()
 
-
         viewModel.accessTokenStatus.observe(this) {
             when (it) {
-
                 is GenericResult.Progress -> Log.e("bnbnvn", it.toString())
                 is GenericResult.Success<*> -> {
                     val list = it.value as List<ImgurGalleryAlbum>
@@ -73,9 +69,6 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
     }
 
     private fun initListeners() {
-        fab.setSafeOnClickListener {
-//            onDarkThemeMenuItemSelected(isDarkTheme(this))
-        }
 
         fab.apply {
             setShowMotionSpecResource(R.animator.fab_show)
@@ -86,7 +79,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
             bottomNavDrawer.toggle()
         }
 
-        val fabView  = fab
+        val fabView = fab
         val image = bottom_app_bar_chevron
         bottomNavDrawer.apply {
             addOnSlideAction(HalfClockwiseRotateSlideAction(image))
@@ -104,15 +97,6 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
      * Set this Activity's night mode based on a user's in-app selection.
      */
     private fun onDarkThemeMenuItemSelected(isDark: Boolean): Boolean {
-        val nightMode = AppCompatDelegate.MODE_NIGHT_YES
-//                when (itemId) {
-//            R.id.menu_light -> AppCompatDelegate.MODE_NIGHT_NO
-//            R.id.menu_dark -> AppCompatDelegate.MODE_NIGHT_YES
-//            R.id.menu_battery_saver -> AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
-//            R.id.menu_system_default -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-//            else -> return false
-//        }
-
         val mode = when (isDark) {
             true -> LIGHT_MODE
             false -> DARK_MODE
@@ -123,7 +107,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
         return true
     }
 
-    fun isDarkTheme(activity: Activity): Boolean {
+    private fun isDarkTheme(activity: Activity): Boolean {
         return activity.resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
@@ -151,7 +135,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
         viewModel.fetchPosts()
     }
 
-    override fun onEmailLongPressed(galleryAlbum: ImgurGalleryAlbum): Boolean {
+    override fun onGalleryLongPressed(galleryAlbum: ImgurGalleryAlbum): Boolean {
         MenuBottomSheetDialogFragment(R.menu.email_bottom_sheet_menu).show(supportFragmentManager, null)
         return true
     }

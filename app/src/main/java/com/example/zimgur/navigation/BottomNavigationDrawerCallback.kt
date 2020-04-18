@@ -1,19 +1,3 @@
-/*
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.zimgur.navigation
 
 import android.annotation.SuppressLint
@@ -87,15 +71,15 @@ class BottomNavigationDrawerCallback : BottomSheetBehavior.BottomSheetCallback()
 
         val halfExpandedOffset = parent.height * (1 - behavior.halfExpandedRatio)
         val peekHeightMin = parent.resources.getDimensionPixelSize(
-            R.dimen.design_bottom_sheet_peek_height_min
+                R.dimen.design_bottom_sheet_peek_height_min
         )
         val peek = max(peekHeightMin, parent.height - parent.width * 9 / 16)
         val collapsedOffset = max(
-            parent.height - peek,
-            max(0, parent.height - sheet.height)
+                parent.height - peek,
+                max(0, parent.height - sheet.height)
         )
         halfExpandedSlideOffset =
-            (collapsedOffset - halfExpandedOffset) / (parent.height - collapsedOffset)
+                (collapsedOffset - halfExpandedOffset) / (parent.height - collapsedOffset)
     }
 
     fun addOnSlideAction(action: OnSlideAction): Boolean {

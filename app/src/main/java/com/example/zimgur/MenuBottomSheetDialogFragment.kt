@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView
 
-class MenuBottomSheetDialogFragment( private val menuRes: Int) : BottomSheetDialogFragment() {
+class MenuBottomSheetDialogFragment(private val menuRes: Int) : BottomSheetDialogFragment() {
 
     //TODO: Remove the value from the constructor, app will crash when parent activity destroyed.
     private lateinit var navigationView: NavigationView
@@ -20,12 +20,6 @@ class MenuBottomSheetDialogFragment( private val menuRes: Int) : BottomSheetDial
         super.onViewCreated(view, savedInstanceState)
         navigationView = view.findViewById(R.id.navigation_view)
         navigationView.inflateMenu(menuRes)
-//        navigationView.setNavigationItemSelectedListener {
-//            val consumed = onNavigationItemSelected(it)
-//            if (consumed) dismiss()
-//            consumed
-//        }
-//    }
     }
 }
 

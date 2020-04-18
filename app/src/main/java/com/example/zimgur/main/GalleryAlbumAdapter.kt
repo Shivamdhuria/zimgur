@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zimgur.R
 import com.example.zimgur.extensions.inflate
-import com.example.zimgur.extensions.setSafeOnClickListener
 import com.example.zimgur.main.data.ImgurGalleryAlbum
 import com.example.zimgur.utils.ImgurImageLoader
 import com.example.zimgur.utils.ImgurUtils
@@ -19,10 +18,8 @@ import kotlinx.android.synthetic.main.item_gallery_album.view.*
 class GalleryAlbumAdapter(private val callback: GalleryAlbumAdapterListener) : ListAdapter<ImgurGalleryAlbum, GalleryAlbumAdapter.UserDateViewHolder>(UserDataAdapterListDiff()) {
 
     interface GalleryAlbumAdapterListener {
-//        fun onEmailClicked(cardView: View, email: Email)
-        fun onEmailLongPressed(galleryAlbum: ImgurGalleryAlbum): Boolean
-//        fun onEmailStarChanged(email: Email, newValue: Boolean)
-//        fun onEmailArchived(email: Email)
+
+        fun onGalleryLongPressed(galleryAlbum: ImgurGalleryAlbum): Boolean
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserDateViewHolder = UserDateViewHolder(
@@ -58,7 +55,7 @@ class GalleryAlbumAdapter(private val callback: GalleryAlbumAdapterListener) : L
                 }
                 userData.cover?.isNotBlank()?.let { ImgurImageLoader.loadImageAndCrop(containerView.context, ImgurUtils.coverImageUrlFromId(userData.cover), containerView.coverImage) }
                 ImgurImageLoader.loadImageWithCircularCrop(containerView.context, ImgurUtils.avatarImageUrlFromId(userData.account_url), containerView.avatarImageView)
-                setOnLongClickListener { callback.onEmailLongPressed(userData) }
+                setOnLongClickListener { callback.onGalleryLongPressed(userData) }
             }
         }
     }

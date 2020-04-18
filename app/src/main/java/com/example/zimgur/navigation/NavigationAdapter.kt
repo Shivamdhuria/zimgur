@@ -1,22 +1,5 @@
-/*
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.zimgur.navigation
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -29,7 +12,6 @@ import com.example.zimgur.extensions.setSafeOnClickListener
 import com.example.zimgur.navigation.data.NavMenuItem
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_menu_item_layout.view.*
-
 
 class NavigationAdapter(private val listener: NavigationAdapterListener) :
         ListAdapter<NavMenuItem, NavigationAdapter.CallViewHolder>(CallAdapterListDiff()) {
@@ -60,15 +42,11 @@ class NavigationAdapter(private val listener: NavigationAdapterListener) :
         fun inflateView(call: NavMenuItem) {
             val context = containerView.context
             containerView.apply {
-                Log.e("new list...........", call.toString())
                 nav_item_title.text = call.titleRes
-                if (call.checked) {
-                    nav_item_title.setTextColor(context.getColorFromAttr(R.attr.colorSecondary))
-                } else {
-                    nav_item_title.setTextColor(context.getColorFromAttr(R.attr.colorError))
+                when (call.checked) {
+                    true -> nav_item_title.setTextColor(context.getColorFromAttr(R.attr.colorSecondary))
+                    false -> nav_item_title.setTextColor(context.getColorFromAttr(R.attr.colorError))
                 }
-//                nav_item_title.isSelected = call.checked
-
                 setSafeOnClickListener { listener.onNavMenuItemClicked(call) }
             }
 
