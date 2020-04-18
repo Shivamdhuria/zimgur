@@ -8,7 +8,6 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
-
 @Singleton
 @Component(
     modules = [

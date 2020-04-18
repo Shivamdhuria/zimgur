@@ -19,16 +19,13 @@ import javax.inject.Singleton
 @Module
 internal class AppModule {
 
-
     @Singleton
     @Provides
     fun provideContext(application: ZimgurApplication): Context = application.applicationContext
 
-
     @Singleton
     @Provides
     fun providePreferences(context: Context) = PreferenceManager.getDefaultSharedPreferences(context)
-
 
     @Provides
     @Singleton
@@ -58,11 +55,10 @@ internal class AppModule {
 
     private fun retrofitConfiguration(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(AppConstant.baseUrl)
-            .addConverterFactory(ImgurResponseConverterFactory(Gson()))
-            .client(client)
-            .build()
-//            .addConverterFactory(ImgurResponseConverterFactory(Gson()))
+                .baseUrl(AppConstant.baseUrl)
+                .addConverterFactory(ImgurResponseConverterFactory(Gson()))
+                .client(client)
+                .build()
     }
 
 

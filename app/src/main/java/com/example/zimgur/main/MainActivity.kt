@@ -54,13 +54,13 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
 
         viewModel.accessTokenStatus.observe(this) {
             when (it) {
-                is GenericResult.Progress -> Log.e("bnbnvn", it.toString())
+                is GenericResult.Progress -> {}
                 is GenericResult.Success<*> -> {
                     val list = it.value as List<ImgurGalleryAlbum>
                     adapter.submitList(list)
                 }
-                is GenericResult.GenericError -> Log.e("bnbnvn", it.toString())
-                is GenericResult.NetworkError -> Log.e("bnbnvn", it.toString())
+                is GenericResult.GenericError ->{}
+                is GenericResult.NetworkError ->{}
             }
         }
 

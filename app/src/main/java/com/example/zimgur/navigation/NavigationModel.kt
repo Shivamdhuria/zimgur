@@ -4,9 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.zimgur.navigation.data.NavMenuItem
 
-/**
- * A class which maintains and generates a navigation list to be displayed by [NavigationAdapter].
- */
 object NavigationModel {
 
     private var navigationMenuItems = mutableListOf(
