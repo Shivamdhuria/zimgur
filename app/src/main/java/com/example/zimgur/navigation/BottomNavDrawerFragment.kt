@@ -25,8 +25,7 @@ class BottomNavDrawerFragment : Fragment(), NavigationAdapter.NavigationAdapterL
 
     private val adapter by lazy(NONE) { NavigationAdapter(this@BottomNavDrawerFragment) }
 
-    private val behavior: BottomSheetBehavior<FrameLayout> by lazy(NONE) {
-        from(background_container)
+    private val behavior: BottomSheetBehavior<FrameLayout> by lazy(NONE) { from(background_container)
     }
 
     private val bottomSheetCallback = BottomNavigationDrawerCallback()
@@ -56,8 +55,6 @@ class BottomNavDrawerFragment : Fragment(), NavigationAdapter.NavigationAdapterL
         val backgroundContext = background_container.context
         MaterialShapeDrawable(backgroundContext, null, R.attr.bottomSheetStyle, 0).apply {
             fillColor = ColorStateList.valueOf(backgroundContext.themeColor(R.attr.colorPrimarySurface))
-//            elevation = resources.getDimension(R.dimen.plane_08)
-//            initializeElevationOverlay(requireContext())
         }
     }
 

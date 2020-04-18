@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -21,7 +20,7 @@ import com.example.zimgur.main.data.ImgurGalleryAlbum
 import com.example.zimgur.navigation.BottomNavDrawerFragment
 import com.example.zimgur.navigation.HalfClockwiseRotateSlideAction
 import com.example.zimgur.navigation.ShowHideFabStateAction
-import com.example.zimgur.preferences.Credentials
+import com.example.zimgur.preferences.PreferenceManager
 import com.example.zimgur.utils.GenericResult
 import com.example.zimgur.utils.ThemeManager
 import com.example.zimgur.utils.ThemeManager.DARK_MODE
@@ -41,7 +40,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
     internal lateinit var factory: ViewModelProvider.Factory
 
     @Inject
-    lateinit var credentials: Credentials
+    lateinit var preferenceManager: PreferenceManager
 
     private val adapter by lazy(NONE) { GalleryAlbumAdapter(this) }
     private val viewModel by lazy(NONE) { ViewModelProvider(this, factory).get(MainActivityViewModel::class.java) }
@@ -50,7 +49,6 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val fabB = fab
         setUpAdapter()
         initListeners()
 
@@ -73,7 +71,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
         fab.apply {
             setShowMotionSpecResource(R.animator.fab_show)
             setHideMotionSpecResource(R.animator.fab_hide)
-            setSafeOnClickListener { onDarkThemeMenuItemSelected(isDarkTheme(this@MainActivity)) }
+            setSafeOnClickListener { toggleTheme(isDarkTheme(this@MainActivity)) }
         }
         bottom_app_bar_content_container.setOnClickListener {
             bottomNavDrawer.toggle()
@@ -83,7 +81,6 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
         val image = bottom_app_bar_chevron
         bottomNavDrawer.apply {
             addOnSlideAction(HalfClockwiseRotateSlideAction(image))
-//            addOnSlideAction(AlphaSlideAction(binding.bottomAppBarTitle, true))
             addOnStateChangedAction(ShowHideFabStateAction(fabView))
         }
         bottom_app_bar.apply {
@@ -96,14 +93,13 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
     /**
      * Set this Activity's night mode based on a user's in-app selection.
      */
-    private fun onDarkThemeMenuItemSelected(isDark: Boolean): Boolean {
+    private fun toggleTheme(isDark: Boolean): Boolean {
         val mode = when (isDark) {
             true -> LIGHT_MODE
             false -> DARK_MODE
         }
-
         ThemeManager.applyTheme(mode)
-        credentials.saveThemePreference(mode.toString())
+        preferenceManager.saveThemePreference(mode)
         return true
     }
 
@@ -141,7 +137,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return false
     }
 }
 

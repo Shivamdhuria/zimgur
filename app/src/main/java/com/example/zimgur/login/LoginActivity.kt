@@ -8,14 +8,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.zimgur.R
 import com.example.zimgur.base.BaseActivity
 import com.example.zimgur.main.MainActivity
-import com.example.zimgur.preferences.Credentials
+import com.example.zimgur.preferences.PreferenceManager
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
 
 class LoginActivity : BaseActivity() {
 
     @Inject
-    lateinit var credentials: Credentials
+    lateinit var preferenceManager: PreferenceManager
 
     @Inject
     internal lateinit var factory: ViewModelProvider.Factory
@@ -71,7 +71,7 @@ class LoginActivity : BaseActivity() {
                 val accountId = uri.getQueryParameter("account_id")
                 Log.e("cred", it.toString())
                 Toast.makeText(this, "bnmbmb m", Toast.LENGTH_LONG).show()
-                credentials.let { c ->
+                preferenceManager.let { c ->
                     c.accessToken = accessToken
                     c.expiresIn = expiresIn?.toIntOrNull() ?: -1
                     c.tokenType = tokenType
@@ -80,7 +80,7 @@ class LoginActivity : BaseActivity() {
                     c.accountId = accountId?.toIntOrNull() ?: -1
                 }
 
-                Log.e("credential class", credentials.accessToken)
+                Log.e("credential class", preferenceManager.accessToken)
                 startActivity(MainActivity(this))
             }
         }

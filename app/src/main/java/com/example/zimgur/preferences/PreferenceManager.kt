@@ -8,10 +8,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * A SharedPreferences manager object that takes care of storing user credentials.
+ * A SharedPreferences manager object that takes care of storing user preferenceManager.
  */
 @Singleton
-class Credentials @Inject constructor(private val prefs: SharedPreferences) {
+class PreferenceManager @Inject constructor(private val prefs: SharedPreferences) {
 
     fun loadFrom(authResult: AuthResult) {
         accessToken = authResult.accessToken

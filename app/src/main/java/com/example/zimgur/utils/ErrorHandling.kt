@@ -22,7 +22,7 @@ class ErrorHandling{
         const val INVALID_PAGE = "Invalid page."
         const val ERROR_CHECK_NETWORK_CONNECTION = "Check network connection."
         const val ERROR_UNKNOWN = "Unknown error"
-        const val INVALID_CREDENTIALS = "Invalid credentials"
+        const val INVALID_CREDENTIALS = "Invalid preferenceManager"
         const val SOMETHING_WRONG_WITH_IMAGE = "Something went wrong with the image."
         const val INVALID_STATE_EVENT = "Invalid state event"
         const val CANNOT_BE_UNDONE = "This can't be undone."

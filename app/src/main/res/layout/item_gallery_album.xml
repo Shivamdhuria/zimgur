@@ -27,23 +27,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Heading" />
 
-        <ImageView
-            android:id="@+id/avatarImageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/titleTextView"
-            tools:src="@tools:sample/cities" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/userName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-            tools:text="Username" />
-
         <TextView
             android:id="@+id/descriptionTextView"
             android:layout_width="match_parent"
@@ -53,6 +36,23 @@
             app:layout_constraintTop_toBottomOf="@id/userName"
             tools:text="Description"
             tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+            tools:text="Username" />
+
+        <ImageView
+            android:id="@+id/avatarImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/titleTextView"
+            tools:src="@tools:sample/cities" />
 
         <ImageView
             android:id="@+id/coverImage"
@@ -78,5 +78,4 @@
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </com.google.android.material.card.MaterialCardView>
