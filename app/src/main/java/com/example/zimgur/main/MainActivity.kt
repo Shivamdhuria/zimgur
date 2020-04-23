@@ -5,9 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -51,6 +52,12 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
         setContentView(R.layout.activity_main)
         setUpAdapter()
         initListeners()
+        window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//        or
+//                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         viewModel.accessTokenStatus.observe(this) {
             when (it) {
@@ -132,7 +139,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
     }
 
     override fun onGalleryLongPressed(galleryAlbum: ImgurGalleryAlbum): Boolean {
-        MenuBottomSheetDialogFragment(R.menu.email_bottom_sheet_menu).show(supportFragmentManager, null)
+        MenuBottomSheetDialogFragment(R.menu.album_bottom_sheet_menu).show(supportFragmentManager, null)
         return true
     }
 

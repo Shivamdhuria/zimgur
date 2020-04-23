@@ -20,6 +20,10 @@ class MenuBottomSheetDialogFragment(private val menuRes: Int) : BottomSheetDialo
         super.onViewCreated(view, savedInstanceState)
         navigationView = view.findViewById(R.id.navigation_view)
         navigationView.inflateMenu(menuRes)
+        navigationView.setNavigationItemSelectedListener {
+            dismiss()
+            true
+        }
     }
 }
 

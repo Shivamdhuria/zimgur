@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -31,12 +32,12 @@
 
         <LinearLayout
             android:id="@+id/bottom_app_bar_content_container"
-            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/min_touch_target_size"
             android:foreground="@drawable/bottom_app_bar_title_foreground"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/bottom_app_bar_chevron"
