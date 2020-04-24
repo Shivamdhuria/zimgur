@@ -26,7 +26,7 @@
 
 
         <item name="scrimBackground">@color/zimgur_white_50_alpha_060</item>
-        <item name="android:statusBarColor">@color/zimgur_yellow_50_alpha_060</item>
+        <item name="android:statusBarColor">@color/zimgur_blue_50_alpha_060</item>
         <item name="android:navigationBarColor">@color/nav_bar</item>
 
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Zimgur.SmallComponent</item>
@@ -64,7 +64,9 @@
         <!--System/Platform attributes-->
 <!--        <item name="android:windowBackground">?android:colorBackground</item>-->
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
 
+        <item name="elevationOverlayEnabled">true</item>
 
 
 <!--        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>-->

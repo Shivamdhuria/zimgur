@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
+import android.view.View.*
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -49,25 +49,33 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var flags = SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+
+        //This should be easily be done by setting "android:windowLightStatusBar" item to true in Day Theme and false
+        // in night Theme but it seems to be broken for now. :(
+        if (!isDarkTheme(this)) {
+            flags = flags or SYSTEM_UI_FLAG_LIGHT_STATUS_BAR}
+
+        window.decorView.systemUiVisibility = flags
         setContentView(R.layout.activity_main)
         setUpAdapter()
         initListeners()
-        window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-//        or
-//                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
 
         viewModel.accessTokenStatus.observe(this) {
             when (it) {
-                is GenericResult.Progress -> {}
+                is GenericResult.Progress -> {
+                }
                 is GenericResult.Success<*> -> {
                     val list = it.value as List<ImgurGalleryAlbum>
                     adapter.submitList(list)
                 }
-                is GenericResult.GenericError ->{}
-                is GenericResult.NetworkError ->{}
+                is GenericResult.GenericError -> {
+                }
+                is GenericResult.NetworkError -> {
+                }
             }
         }
 
