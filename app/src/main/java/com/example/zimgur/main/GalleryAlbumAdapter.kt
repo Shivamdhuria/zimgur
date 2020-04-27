@@ -54,7 +54,7 @@ class GalleryAlbumAdapter(private val callback: GalleryAlbumAdapterListener) : L
                     chipGroup.addView(chip)
                 }
                 userData.cover?.isNotBlank()?.let { ImgurImageLoader.loadImageAndCrop(containerView.context, ImgurUtils.coverImageUrlFromId(userData.cover), containerView.coverImage) }
-                ImgurImageLoader.loadImageWithCircularCrop(containerView.context, ImgurUtils.avatarImageUrlFromId(userData.account_url), containerView.avatarImageView)
+                userData.account_url?.let { ImgurUtils.avatarImageUrlFromId(it) }?.let { ImgurImageLoader.loadImageWithCircularCrop(containerView.context, it, containerView.avatarImageView) }
                 setOnLongClickListener { callback.onGalleryLongPressed(userData) }
             }
         }

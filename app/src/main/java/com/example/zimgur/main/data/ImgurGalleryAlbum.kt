@@ -19,9 +19,9 @@ data class ImgurGalleryAlbum(
         @SerializedName("cover_height")
         val cover_height: Int,
         @SerializedName("account_url")
-        val account_url: String,
+        val account_url: String?,
         @SerializedName("account_id")
-        val account_id: Int,
+        val account_id: Int?,
         @SerializedName("privacy")
         val privacy: String,
         @SerializedName("layout")
@@ -53,7 +53,7 @@ data class ImgurGalleryAlbum(
         @SerializedName("topic_id")
         val topic_id: Int,
         @SerializedName("images_count")
-        val images_count: Int,
+        val images_count: Int?,
         @SerializedName("tags")
         val tags: List<Tag>,
         @SerializedName("images")

@@ -7,9 +7,10 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.View.*
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +38,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
         operator fun invoke(context: Context) = Intent(context, MainActivity::class.java)
     }
 
+
     @Inject
     internal lateinit var factory: ViewModelProvider.Factory
 
@@ -56,13 +58,14 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
         //This should be easily be done by setting "android:windowLightStatusBar" item to true in Day Theme and false
         // in night Theme but it seems to be broken for now. :(
         if (!isDarkTheme(this)) {
-            flags = flags or SYSTEM_UI_FLAG_LIGHT_STATUS_BAR}
+            flags = flags or SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         window.decorView.systemUiVisibility = flags
         setContentView(R.layout.activity_main)
         setUpAdapter()
         initListeners()
-
+        setInsets()
 
         viewModel.accessTokenStatus.observe(this) {
             when (it) {
@@ -77,6 +80,17 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
                 is GenericResult.NetworkError -> {
                 }
             }
+        }
+
+    }
+
+    private fun setInsets() {
+//        https://proandroiddev.com/draw-under-status-bar-like-a-pro-db38cfff2870
+
+        ViewCompat.setOnApplyWindowInsetsListener(recyclerView) { view, insets ->
+
+            recyclerView.updatePadding(top = insets.systemWindowInsetTop - 1)
+            insets
         }
 
     }
@@ -114,6 +128,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
             false -> DARK_MODE
         }
         ThemeManager.applyTheme(mode)
+        recreate()
         preferenceManager.saveThemePreference(mode)
         return true
     }
@@ -154,6 +169,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         return false
     }
+
 }
 
 

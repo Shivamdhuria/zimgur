@@ -22,6 +22,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.example.zimgur.R
@@ -32,6 +34,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.shape.MaterialShapeDrawable
 import kotlinx.android.synthetic.main.fragment_bottom_nav_drawer.*
 import kotlin.LazyThreadSafetyMode.NONE
+
 
 class BottomNavDrawerFragment : Fragment(), NavigationAdapter.NavigationAdapterListener {
 
@@ -56,6 +59,7 @@ class BottomNavDrawerFragment : Fragment(), NavigationAdapter.NavigationAdapterL
         nav_recycler_view.adapter = adapter
         observeLiveModel()
         NavigationModel.setNavigationMenuItemChecked(0)
+        setInsets()
     }
 
     private fun observeLiveModel() {
@@ -68,7 +72,19 @@ class BottomNavDrawerFragment : Fragment(), NavigationAdapter.NavigationAdapterL
         val backgroundContext = background_container.context
         MaterialShapeDrawable(backgroundContext, null, R.attr.bottomSheetStyle, 0).apply {
             fillColor = ColorStateList.valueOf(backgroundContext.themeColor(R.attr.colorPrimarySurface))
+
         }
+    }
+
+    private fun setInsets() {
+//        https://proandroiddev.com/draw-under-status-bar-like-a-pro-db38cfff2870
+//
+        ViewCompat.setOnApplyWindowInsetsListener(nav_recycler_view) { view, insets ->
+
+            nav_recycler_view.updatePadding(top= insets.systemWindowInsetTop + 10)
+            insets
+        }
+
     }
 
 

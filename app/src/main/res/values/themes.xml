@@ -57,20 +57,24 @@
 <!--        <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>-->
         <item name="navigationViewStyle">@style/Widget.Zimgur.NavigationView</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface</item>
-<!--        <item name="chipStyle">@style/Widget.zimgur.Chip.Entry</item>-->
+
+        <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
+
+        <!--        <item name="chipStyle">@style/Widget.zimgur.Chip.Entry</item>-->
 
 
 
         <!--System/Platform attributes-->
 <!--        <item name="android:windowBackground">?android:colorBackground</item>-->
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
-<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
-
         <item name="elevationOverlayEnabled">true</item>
 
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
 
-<!--        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>-->
-<!--        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>-->
+
+<!--        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>-->
+<!--        <item name="android:windowExitAnimation">@android:anim/fade_out</item>-->
+
 
     </style>
 </resources>
