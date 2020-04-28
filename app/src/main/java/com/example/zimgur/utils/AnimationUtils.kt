@@ -1,19 +1,3 @@
-/*
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.zimgur.utils
 
 import androidx.annotation.ColorInt
@@ -21,14 +5,17 @@ import androidx.annotation.FloatRange
 import com.google.android.material.animation.ArgbEvaluatorCompat
 import kotlin.math.roundToInt
 
+
+/**
+ * Got this from Material UI Reply Example
+ * https://github.com/material-components/material-components-android-examples
+ */
+
 /**
  * Linearly interpolate between two values
  */
-fun lerp(
-    startValue: Float,
-    endValue: Float,
-    @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true) fraction: Float
-): Float {
+fun lerp(startValue: Float, endValue: Float,
+    @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true) fraction: Float): Float {
     return startValue + fraction * (endValue - startValue)
 }
 
@@ -38,8 +25,7 @@ fun lerp(
 fun lerp(
     startValue: Int,
     endValue: Int,
-    @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true) fraction: Float
-): Int {
+    @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true) fraction: Float): Int {
     return (startValue + fraction * (endValue - startValue)).roundToInt()
 }
 

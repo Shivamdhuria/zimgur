@@ -88,8 +88,6 @@ class PreferenceManager @Inject constructor(private val prefs: SharedPreferences
         private const val KEY_TOKEN_TYPE = "token_type"
         private const val KEY_EXPIRES_IN = "expires_in"
         private const val KEY_DID_SECOND_STAGE_AUTH = "did_second_stage_auth"
-
-
         private const val TOKEN = "token"
         private const val PREFERENCE_THEME = "preference_key_theme"
     }

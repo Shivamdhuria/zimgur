@@ -8,16 +8,6 @@ import com.google.android.material.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlin.math.max
 
-/**
- * A [BottomSheetBehavior.BottomSheetCallback] which helps break apart clients who would like to
- * react to changed in either the bottom sheet's slide offset or state. Clients can dynamically
- * add or remove [OnSlideAction]s or [OnStateChangedAction]s which will be run when the
- * sheet's slideOffset or state are changed.
- *
- * This callback's behavior differs slightly in that the slideOffset passed to [OnSlideAction]s
- * in [onSlide] is corrected to guarantee that the offset 0.0 <i>always</i> be exactly at the
- * [BottomSheetBehavior.STATE_HALF_EXPANDED] state.
- */
 class BottomNavigationDrawerCallback : BottomSheetBehavior.BottomSheetCallback() {
 
     private val onSlideActions: MutableList<OnSlideAction> = mutableListOf()
@@ -50,20 +40,7 @@ class BottomNavigationDrawerCallback : BottomSheetBehavior.BottomSheetCallback()
         onStateChangedActions.forEach { it.onStateChanged(sheet, newState) }
     }
 
-    /**
-     * Calculate the onSlideOffset which will be given when the bottom sheet is in the
-     * [BottomSheetBehavior.STATE_HALF_EXPANDED] state.
-     *
-     * Recording the correct slide offset for the half expanded state happens in [onStateChanged].
-     * Since the first time the sheet is opened, we haven't yet received a call to [onStateChanged],
-     * this method is used to calculate the initial value manually so we can smoothly normalize
-     * slideOffset values received between -1 and 1.
-     *
-     * See:
-     * [BottomSheetBehavior.calculateCollapsedOffset]
-     * [BottomSheetBehavior.calculateHalfExpandedOffset]
-     * [BottomSheetBehavior.dispatchOnSlide]
-     */
+
     @SuppressLint("PrivateResource")
     private fun calculateInitialHalfExpandedSlideOffset(sheet: View) {
         val parent = sheet.parent as CoordinatorLayout

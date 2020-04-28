@@ -11,6 +11,10 @@ import com.example.zimgur.extensions.setSafeOnClickListener
 import kotlinx.android.synthetic.main.activity_welcome_screen.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
+/*
+No need for this activity for this tutorial
+ */
+
 class WelcomeScreenActivity : AppCompatActivity() {
 
     public val redirectUrl = "elixer://callback"
@@ -36,11 +40,11 @@ class WelcomeScreenActivity : AppCompatActivity() {
          * data such as the access token, the client ID and the username
          */
         val url = urlAuth.toHttpUrlOrNull()
-            ?.newBuilder()
-            ?.addQueryParameter("client_id", BuildConfig.IMGUR_OAUTH2_CLIENT_ID)
-            ?.addQueryParameter("client_secret", BuildConfig.IMGUR_OAUTH2_CLIENT_SECRET)
-            ?.addQueryParameter("response_type", Config.IMGUR_OAUTH2_RESPONSE_TYPE)
-            ?.build()
+                ?.newBuilder()
+                ?.addQueryParameter("client_id", BuildConfig.IMGUR_OAUTH2_CLIENT_ID)
+                ?.addQueryParameter("client_secret", BuildConfig.IMGUR_OAUTH2_CLIENT_SECRET)
+                ?.addQueryParameter("response_type", Config.IMGUR_OAUTH2_RESPONSE_TYPE)
+                ?.build()
         if (url != null) {
             val i = Intent(Intent.ACTION_VIEW)
             i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
