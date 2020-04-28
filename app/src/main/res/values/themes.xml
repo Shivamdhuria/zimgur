@@ -14,16 +14,15 @@
 
         <item name="android:colorBackground">@color/zimgur_blue_50</item>
         <item name="colorSurface">@color/zimgur_white_50</item>
+
         <item name="colorPrimarySurfaceVariant">?attr/colorPrimaryVariant</item>
         <item name="colorError">@color/zimgur_red_400</item>
-
 
         <item name="colorOnPrimary">@color/zimgur_white_50</item>
         <item name="colorOnSecondary">@color/zimgur_black_900</item>
         <item name="colorOnBackground">@color/zimgur_black_900</item>
         <item name="colorOnSurface">@color/zimgur_black_900</item>
         <item name="colorOnError">@color/zimgur_white_50</item>
-
 
         <item name="scrimBackground">@color/zimgur_white_50_alpha_060</item>
         <item name="android:statusBarColor">@color/zimgur_blue_50_alpha_060</item>
@@ -51,30 +50,14 @@
         <item name="emphasisMediumAlpha">0.60</item>
         <item name="emphasisDisabledAlpha">0.38</item>
 
-
-<!--        Styles-->
-<!--        <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface</item>-->
-<!--        <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>-->
         <item name="navigationViewStyle">@style/Widget.Zimgur.NavigationView</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface</item>
 
         <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
-
-        <!--        <item name="chipStyle">@style/Widget.zimgur.Chip.Entry</item>-->
-
-
-
-        <!--System/Platform attributes-->
-<!--        <item name="android:windowBackground">?android:colorBackground</item>-->
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
         <item name="elevationOverlayEnabled">true</item>
 
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
-
-
-<!--        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>-->
-<!--        <item name="android:windowExitAnimation">@android:anim/fade_out</item>-->
-
 
     </style>
 </resources>

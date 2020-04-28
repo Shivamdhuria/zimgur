@@ -1,6 +1,7 @@
 package com.example.zimgur.utils
 
 import android.util.Log
+import com.example.zimgur.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
@@ -17,7 +18,7 @@ internal class AuthenticationInterceptor @Inject constructor(private val prefere
     override fun intercept(chain: Interceptor.Chain): Response {
         val initial = chain.request()
         val builder = chain.request().newBuilder()
-//        builder.addHeader(HEADER_NAME, "Client-ID $clientId")
+        builder.addHeader(HEADER_NAME, "Client-ID ${BuildConfig.IMGUR_OAUTH2_CLIENT_ID}")
         val request = builder.build()
         Log.e("interceptor", request.toString())
         return chain.proceed(request)

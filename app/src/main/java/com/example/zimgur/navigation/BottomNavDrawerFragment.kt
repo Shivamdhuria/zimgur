@@ -55,7 +55,6 @@ class BottomNavDrawerFragment : Fragment(), NavigationAdapter.NavigationAdapterL
         val backgroundContext = background_container.context
         MaterialShapeDrawable(backgroundContext, null, R.attr.bottomSheetStyle, 0).apply {
             fillColor = ColorStateList.valueOf(backgroundContext.themeColor(R.attr.colorPrimarySurface))
-
         }
     }
 
