@@ -8,11 +8,6 @@ import javax.inject.Inject
 
 internal class LoginViewModel @Inject constructor(private val repository: LoginRepository) : ViewModel() {
 
-    public val clientId = "c8e063cdf1c29db"
-    public val clientSecret = "8df5ab682be6a078bea3682c0a1a36ef66497558"
-    public val redirectUrl = "elixer://callback"
-    public val urlAuth = "https://api.imgur.com/oauth2/authorize"
-
     @Inject
     lateinit var preferenceManager: PreferenceManager
 

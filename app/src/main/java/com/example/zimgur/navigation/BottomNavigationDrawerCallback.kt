@@ -8,16 +8,6 @@ import com.google.android.material.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlin.math.max
 
-/**
- * A [BottomSheetBehavior.BottomSheetCallback] which helps break apart clients who would like to
- * react to changed in either the bottom sheet's slide offset or state. Clients can dynamically
- * add or remove [OnSlideAction]s or [OnStateChangedAction]s which will be run when the
- * sheet's slideOffset or state are changed.
- *
- * This callback's behavior differs slightly in that the slideOffset passed to [OnSlideAction]s
- * in [onSlide] is corrected to guarantee that the offset 0.0 <i>always</i> be exactly at the
- * [BottomSheetBehavior.STATE_HALF_EXPANDED] state.
- */
 class BottomNavigationDrawerCallback : BottomSheetBehavior.BottomSheetCallback() {
 
     private val onSlideActions: MutableList<OnSlideAction> = mutableListOf()
@@ -85,6 +75,7 @@ class BottomNavigationDrawerCallback : BottomSheetBehavior.BottomSheetCallback()
     fun addOnSlideAction(action: OnSlideAction): Boolean {
         return onSlideActions.add(action)
     }
+
     fun addOnStateChangedAction(action: OnStateChangedAction): Boolean {
         return onStateChangedActions.add(action)
     }
