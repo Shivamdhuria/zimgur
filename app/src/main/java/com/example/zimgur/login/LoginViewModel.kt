@@ -2,11 +2,7 @@ package com.example.zimgur.login
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
-import com.example.zimgur.login.data.AuthResult
-import com.example.zimgur.login.data.Credentials
-import com.example.zimgur.utils.GenericResult
-import kotlinx.coroutines.flow.Flow
+import com.example.zimgur.preferences.PreferenceManager
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 
@@ -18,7 +14,7 @@ internal class LoginViewModel @Inject constructor(private val repository: LoginR
     public val urlAuth = "https://api.imgur.com/oauth2/authorize"
 
     @Inject
-    lateinit var credentials: Credentials
+    lateinit var preferenceManager: PreferenceManager
 
     private val loginInput = MutableLiveData<Int>()
     private val atomicInteger = AtomicInteger()
@@ -26,7 +22,7 @@ internal class LoginViewModel @Inject constructor(private val repository: LoginR
     internal val accessTokenStatus by lazy {
 //        loginInput.switchMap {
 //            repository.generateAccessToken(
-//                refreshToken = credentials.refreshToken ?: "",
+//                refreshToken = preferenceManager.refreshToken ?: "",
 //                clientId = clientId,
 //                clientSecret = clientSecret,
 //                grantType = "refresh_token"

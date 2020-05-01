@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_item_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/navigation_drawer_menu_item_height"
+    android:background="?attr/selectableItemBackground"
+    android:ellipsize="end"
+    android:gravity="center_vertical|start"
+    android:lines="1"
+    android:textColor="@color/color_navigation_drawer_menu_item"
+    tools:text="Inbox" />

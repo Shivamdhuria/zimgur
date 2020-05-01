@@ -1,4 +1,4 @@
-package com.cloud.io.base
+package com.example.zimgur.base
 
 import dagger.android.support.DaggerAppCompatActivity
 

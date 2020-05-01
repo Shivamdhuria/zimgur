@@ -10,4 +10,23 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_welcome_screen">WelcomeScreenActivity</string>
+
+
+    <!--BottomSheet menus-->
+    <string name="menu_item_forward">Forward</string>
+    <string name="menu_item_reply">Reply</string>
+    <string name="menu_item_reply_all">Reply all</string>
+    <string name="menu_item_archive">Archive</string>
+    <string name="menu_item_delete">Delete</string>
+    <string name="menu_item_star">Star</string>
+    <string name="menu_item_search">Search</string>
+    <string name="menu_item_settings">Settings</string>
+
+    <!--BottomNavigationDrawer-->
+    <string name="navigation_inbox">Inbox</string>
+    <string name="navigation_starred">Starred</string>
+    <string name="navigation_sent">Send</string>
+    <string name="navigation_trash">Trash</string>
+    <string name="navigation_spam">Spam</string>
+    <string name="navigation_drafts">Drafts</string>
 </resources>
