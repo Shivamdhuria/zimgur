@@ -55,8 +55,8 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
                 SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                 SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        //This should be easily be done by setting "android:windowLightStatusBar" item to true in Day Theme and false
-        // in night Theme but it seems to be broken for now. :(
+        //Changing status bar icons color should be easily be done by setting "android:windowLightStatusBar" item to true in Day Theme and false
+        // in night Theme but it seems to be broken for now if above flags are set. :(
         if (!isDarkTheme(this)) {
             flags = flags or SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
@@ -85,7 +85,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
     }
 
     private fun setInsets() {
-//        https://proandroiddev.com/draw-under-status-bar-like-a-pro-db38cfff2870
+//      https://proandroiddev.com/draw-under-status-bar-like-a-pro-db38cfff2870
 
         ViewCompat.setOnApplyWindowInsetsListener(recyclerView) { view, insets ->
 
