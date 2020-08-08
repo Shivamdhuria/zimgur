@@ -6,7 +6,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
-internal class AuthenticationInterceptor @Inject constructor(private val preferences: PreferencesManager) : Interceptor {
+class AuthenticationInterceptor () : Interceptor {
 
     private companion object {
         private const val HEADER_NAME = "Authorization"

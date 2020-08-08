@@ -8,15 +8,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.*
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zimgur.MenuBottomSheetDialogFragment
 import com.example.zimgur.R
-import com.example.zimgur.base.BaseActivity
 import com.example.zimgur.extensions.setSafeOnClickListener
 import com.example.zimgur.main.data.ImgurGalleryAlbum
 import com.example.zimgur.navigation.BottomNavDrawerFragment
@@ -27,11 +27,13 @@ import com.example.zimgur.utils.GenericResult
 import com.example.zimgur.utils.ThemeManager
 import com.example.zimgur.utils.ThemeManager.DARK_MODE
 import com.example.zimgur.utils.ThemeManager.LIGHT_MODE
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
 
-class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterListener, Toolbar.OnMenuItemClickListener {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterListener, Toolbar.OnMenuItemClickListener {
 
     internal companion object {
 
@@ -39,14 +41,11 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
     }
 
 
-    @Inject
-    internal lateinit var factory: ViewModelProvider.Factory
-
-    @Inject
-    lateinit var preferenceManager: PreferenceManager
+//    @Inject
+//    lateinit var preferenceManager: PreferenceManager
 
     private val adapter by lazy(NONE) { GalleryAlbumAdapter(this) }
-    private val viewModel by lazy(NONE) { ViewModelProvider(this, factory).get(MainActivityViewModel::class.java) }
+    private val viewModel: MainActivityViewModel by viewModels()
     private val bottomNavDrawer: BottomNavDrawerFragment by lazy(NONE) { supportFragmentManager.findFragmentById(R.id.bottom_nav_drawer) as BottomNavDrawerFragment }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,7 +128,7 @@ class MainActivity : BaseActivity(), GalleryAlbumAdapter.GalleryAlbumAdapterList
         }
         ThemeManager.applyTheme(mode)
         recreate()
-        preferenceManager.saveThemePreference(mode)
+//        preferenceManager.saveThemePreference(mode)
         return true
     }
 

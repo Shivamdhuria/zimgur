@@ -1,12 +1,13 @@
 package com.example.zimgur.main
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 
-class MainActivityViewModel @Inject constructor(private val repository: MainActivityRepository) :
+class MainActivityViewModel @ViewModelInject constructor(private val repository: MainActivityRepository) :
     ViewModel() {
 
     private val loginInput = MutableLiveData<Int>()

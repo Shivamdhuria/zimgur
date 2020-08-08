@@ -1,26 +1,28 @@
 package com.example.zimgur.app
 
+import android.app.Application
+import com.example.zimgur.BuildConfig
 import com.example.zimgur.preferences.PreferenceManager
 import com.example.zimgur.utils.ThemeManager
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
+import com.facebook.stetho.Stetho
+import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
-internal class ZimgurApplication : DaggerApplication() {
+@HiltAndroidApp
+internal class ZimgurApplication : Application() {
 
-    @Inject
-    lateinit var preferenceManager: PreferenceManager
+//    @Inject
+//    lateinit var preferenceManager: PreferenceManager
 
     override fun onCreate() {
         super.onCreate()
-        initTheme()
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this)
+        }
+//        initTheme()
     }
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.factory().create(this)
-    }
-
-    private fun initTheme() {
-        ThemeManager.applyTheme(preferenceManager.themePreference())
-    }
+//    private fun initTheme() {
+//        ThemeManager.applyTheme(preferenceManager.themePreference())
+//    }
 }

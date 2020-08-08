@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-internal interface MainActivityApi {
+interface MainActivityApi {
 
     @GET("/3/gallery/{section}/{sort}/{window}/{page}")
     suspend fun getGallery(
